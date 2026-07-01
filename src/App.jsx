@@ -172,8 +172,16 @@ function Dashboard({ user, syncState, pending }) {
   }
 
   function updateSiteField(field, value) {
+    updateSiteFields({ [field]: value });
+  }
+
+  // Updates several fields on the active site in a single, atomic write.
+  // (Calling updateSiteField three times in a row for url/w/h caused each
+  // call to overwrite the previous one before it landed, silently dropping
+  // the floor plan URL — this fixes that.)
+  function updateSiteFields(fields) {
     if (!activeSite) return;
-    const updated = { ...activeSite, [field]: value, updated_at: new Date().toISOString() };
+    const updated = { ...activeSite, ...fields, updated_at: new Date().toISOString() };
     setAllSites((list) => list.map((s) => (s.id === activeSite.id ? updated : s)));
     debouncedSave("site:" + activeSite.id, () => saveSiteLocalAndQueue(updated));
   }
@@ -259,10 +267,9 @@ function Dashboard({ user, syncState, pending }) {
     try {
       const { blob, w, h } = await resizeImageFile(file);
       const url = await uploadFloorplan(activeSite.id, blob, "jpg");
-      updateSiteField("floorplan_url", url);
-      updateSiteField("floorplan_w", w);
-      updateSiteField("floorplan_h", h);
+      updateSiteFields({ floorplan_url: url, floorplan_w: w, floorplan_h: h });
     } catch (e) {
+      console.error("Floor plan upload failed:", e);
       window.alert("Could not upload that image. Check your connection and try again.");
     } finally {
       setUploadBusy(false);
