@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
   Plus, Trash2, Printer, Upload, MapPin, Building2, Check,
-  Crosshair, Loader2, Menu, Camera, LogOut, WifiOff, Cloud, CloudOff, RefreshCw
+  Crosshair, Loader2, Menu, LogOut, WifiOff, Cloud, CloudOff, RefreshCw
 } from "lucide-react";
 import { supabase, isAdminUser } from "./lib/supabase";
+import impiMark from "./assets/impi-mark.png";
 import {
   fetchAllSites, saveSiteLocalAndQueue, deleteSiteLocalAndQueue,
   saveCameraLocalAndQueue, deleteCameraLocalAndQueue,
@@ -360,9 +361,7 @@ function Dashboard({ user, syncState, pending }) {
           <div className="sidebar-fixed" style={{ width: 280, flexShrink: 0, background: "#101A29", color: "#fff", position: "fixed", top: 0, bottom: 0, left: sidebarOpen ? 0 : -300, transition: "left .2s ease", zIndex: 40, display: "flex", flexDirection: "column" }}>
             <div style={{ padding: "18px 16px", borderBottom: "1px solid #1F2C40" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <div style={{ width: 34, height: 34, borderRadius: 8, background: "#FDDB07", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <Camera size={18} color="#101A29" />
-                </div>
+                <img src={impiMark} alt="IMPI" style={{ width: 34, height: 34, objectFit: "contain" }} />
                 <div style={{ minWidth: 0 }}>
                   <div style={{ fontWeight: 700, fontSize: 14 }}>IMPI CCTV Register</div>
                   <div style={{ fontSize: 11, color: "#8B95A7", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{user.email} {isAdmin && "· admin"}</div>
@@ -568,11 +567,14 @@ function PrintReport({ site, cameras, pinsByCamera }) {
   return (
     <div style={{ fontFamily: "Georgia, 'Times New Roman', serif", color: "#1A1A1A" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "3px solid #DE1819", paddingBottom: 10, marginBottom: 16 }}>
-        <div>
-          <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "Arial, sans-serif" }}>{COMPANY.name}</div>
-          <div style={{ fontSize: 11, color: "#444" }}>{COMPANY.legal}</div>
-          <div style={{ fontSize: 11, color: "#444" }}>{COMPANY.address}</div>
-          <div style={{ fontSize: 11, color: "#444" }}>{COMPANY.phone} &nbsp;|&nbsp; {COMPANY.email} &nbsp;|&nbsp; {COMPANY.web}</div>
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+          <img src={impiMark} alt="IMPI" style={{ width: 54, height: 54, objectFit: "contain", flexShrink: 0 }} />
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 700, fontFamily: "Arial, sans-serif" }}>{COMPANY.name}</div>
+            <div style={{ fontSize: 11, color: "#444" }}>{COMPANY.legal}</div>
+            <div style={{ fontSize: 11, color: "#444" }}>{COMPANY.address}</div>
+            <div style={{ fontSize: 11, color: "#444" }}>{COMPANY.phone} &nbsp;|&nbsp; {COMPANY.email} &nbsp;|&nbsp; {COMPANY.web}</div>
+          </div>
         </div>
         <div style={{ textAlign: "right" }}>
           <div style={{ fontSize: 13, fontWeight: 700, fontFamily: "Arial, sans-serif", background: "#101A29", color: "#fff", padding: "5px 10px", borderRadius: 4 }}>CCTV IP &amp; DIAGRAM SHEET</div>

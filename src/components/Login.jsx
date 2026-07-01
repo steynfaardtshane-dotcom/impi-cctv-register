@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Camera, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { supabase } from "../lib/supabase";
+import impiMark from "../assets/impi-mark.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -21,9 +22,7 @@ export default function Login() {
     <div style={{ minHeight: "100vh", background: "#101A29", display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
       <form onSubmit={handleSubmit} style={{ background: "#fff", borderRadius: 14, padding: 28, width: "100%", maxWidth: 360, boxShadow: "0 20px 60px rgba(0,0,0,.4)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
-          <div style={{ width: 40, height: 40, borderRadius: 10, background: "#FDDB07", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Camera size={20} color="#101A29" />
-          </div>
+          <img src={impiMark} alt="IMPI" style={{ width: 44, height: 44, objectFit: "contain" }} />
           <div>
             <div style={{ fontWeight: 800, fontSize: 15, color: "#101A29" }}>IMPI CCTV Register</div>
             <div style={{ fontSize: 11.5, color: "#8A8F98" }}>Amandla Protection Services</div>
