@@ -451,7 +451,13 @@ function Dashboard({ user, syncState, pending }) {
                           <button onClick={startNewDeviceThenPlace} style={placingForId ? btnAmber : btnPrimary}><Crosshair size={14} /> {placingForId ? "Click on plan to place…" : "Add device on diagram"}</button>
                         )}
                       </div>
-                      <input ref={fileInputRef} type="file" accept="image/*" hidden onChange={(e) => handleFloorplanFile(e.target.files[0])} />
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => handleFloorplanFile(e.target.files[0])}
+                        style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}
+                      />
                     </div>
 
                     {uploadBusy && <div style={{ fontSize: 12.5, color: "#6B7280", marginBottom: 8 }}>Uploading image…</div>}
